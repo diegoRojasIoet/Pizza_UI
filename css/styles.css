@@ -17,3 +17,8 @@
 .order {
   display: none;
 }
+
+.form-number-input__beverages {
+   width: 35px;
+   height: 20px;
+}
