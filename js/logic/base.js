@@ -47,7 +47,15 @@ const getDataStrategy = {
         ingredients,
         beverages
     };
+  },
+  ingredient_by_id: () => {
+    return {
+      _id: $("input[id='_id']").val(),
+      name: $("input[id='name']").val(),
+      price: $("input[id='price']").val()
+    };
   }
+  
 }
 
 class Logic {
@@ -83,16 +91,31 @@ class Logic {
 
 
     async #postObject(url, object, typeAlert){
-		let response = await httpInstance.post(url, object)
-		if (response)
-			this.#showNotification(typeAlert)
+      let response = await httpInstance.post(url, object)
+      if (response)
+        this.#showNotification(typeAlert)
     }
 
-    onSubmit(event, dataStrategy, url, typeAlert) {
-		let item = getDataStrategy[dataStrategy]();
-		this.#postObject(url, item, typeAlert);
-		event.preventDefault();
-		event.currentTarget.reset();
+    async #putObject(url, object, typeAlert){
+      let response = await httpInstance.put(url, object)
+      if (response)
+        this.#showNotification(typeAlert)
+    }
+
+    onPostSubmit(event, dataStrategy, url, typeAlert) {
+      let item = getDataStrategy[dataStrategy]();
+      this.#postObject(url, item, typeAlert);
+      event.preventDefault();
+      event.currentTarget.reset();
+    }
+    
+    onUpdateSubmit(event, dataStrategy, url, typeAlert) {
+      debugger
+      let item = getDataStrategy[dataStrategy]();
+      debugger
+      this.#putObject(url, item, typeAlert);
+      event.preventDefault();
+      event.currentTarget.reset();
     }
   }
   

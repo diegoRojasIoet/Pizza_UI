@@ -7,12 +7,15 @@ class Http {
       }
       instance = this;
     }
+    
+    
     async get(url) {
         const response = await fetch(url)
         return response.json();
       }
+    
+    
     async post(url, object){
-      debugger
         const res = await fetch(url, {
                               method: 'POST',
                               body: JSON.stringify(object),
@@ -20,6 +23,19 @@ class Http {
                                   "Content-Type": "application/json; charset=utf-8",
                               },
                           });
+        return res.json();
+    }
+    
+    
+    async put(url, object){
+        const res = await fetch(url, {
+                              method: 'PUT',
+                              body: JSON.stringify(object),
+                              headers: {
+                                  "Content-Type": "application/json; charset=utf-8",
+                              },
+                          })
+         
         return res.json();
     }
 
