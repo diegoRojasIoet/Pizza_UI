@@ -134,7 +134,8 @@
                     <template id="beverages-template">
                       <div class="form-check mb-3" >
                         <input name="beverages" class="form-check-input form-number-input__beverages" type="number" min="0" max="100" />
-                        <label class="form-check-label ml-4" for="exampleNumber"> {{name}} - ${{price}} </label>
+                        <input name="beverages-id" value="{{_id}}" style="display: none" type="number" min="0" max="100" />
+                        <label name="beverages-price" class="form-check-label ml-4" for="exampleNumber"> {{name}} - ${{price}} </label>
                       </div>
                     </template>
                     <tbody></tbody>

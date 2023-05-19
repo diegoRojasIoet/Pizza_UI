@@ -12,8 +12,31 @@ const getDataStrategy = {
   order: () => {
     let ingredients = [];
     $.each($("input[name='ingredients']:checked"), function (el) {
-        ingredients.push($(this).val());
+        ingredients.push(parseInt($(this).val()));
     });
+    
+    let beveragesQuantity = [];
+    $.each($("input[name='beverages']"), function (el) {
+        beveragesQuantity.push($(this).val());
+    });
+    beveragesQuantity = beveragesQuantity.map(n => n!==""? parseInt(n):0)
+    
+    let beverages_id = [];
+    $.each($("input[name='beverages-id']"), function (el) {
+        beverages_id.push($(this).val());
+    });
+
+    let calculate_total_beverages = () =>{
+        let ids=[]
+        for (let i=0; i < beveragesQuantity.length; i++){
+            for (let j=0; j< beveragesQuantity[i]; j++){
+                ids.push(parseInt(beverages_id[i]))
+            }
+        }
+        return ids
+    }
+
+    const beverages = calculate_total_beverages();
 
     return {
         client_name: $("input[name='name']").val(),
@@ -21,7 +44,8 @@ const getDataStrategy = {
         client_address: $("input[name='address']").val(),
         client_phone: $("input[name='phone']").val(),
         size_id: $("input[name='size']:checked").val(),
-        ingredients
+        ingredients,
+        beverages
     };
   }
 }
@@ -65,7 +89,6 @@ class Logic {
     }
 
     onSubmit(event, dataStrategy, url, typeAlert) {
-		debugger
 		let item = getDataStrategy[dataStrategy]();
 		this.#postObject(url, item, typeAlert);
 		event.preventDefault();
