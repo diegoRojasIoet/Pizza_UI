@@ -1,3 +1,6 @@
+import { fetchOrderSizes } from "./logic/size/size.js";
+import { fetchBeverages } from "./logic/beverage/beverage.js";
+import { fetchIngredients } from "./logic/ingredient/ingredient.js";
 /**
  * POST the order on /pizza
  * @param order 
@@ -62,55 +65,10 @@ function showNotification() {
 
 // Gather information in a dynamic way
 
-function fetchIngredients() {
-    fetch('http://127.0.0.1:5000/ingredient/')
-        .then(response => response.json())
-        .then(ingredients => {
-            let rows = ingredients.map(element => createIngredientTemplate(element));
-            let table = $("#ingredients tbody");
-            table.append(rows);
-        });
-}
-
-function fetchOrderSizes() {
-    fetch('http://127.0.0.1:5000/size/')
-        .then(response => response.json())
-        .then(sizes => {
-            let rows = sizes.map(element => createSizeTemplate(element));
-            let table = $("#sizes tbody");
-            table.append(rows);
-        });
-}
-
-function fetchBeverages() {
-    fetch('http://127.0.0.1:5000/beverage/')
-        .then(response => response.json())
-        .then(sizes => {
-            let rows = sizes.map(element => createBeveragesTemplate(element));
-            let table = $("#beverages tbody");
-            table.append(rows);
-        });
-}
-
-function createIngredientTemplate(ingredient) {
-    let template = $("#ingredients-template")[0].innerHTML;
-    return Mustache.render(template, ingredient);
-}
-
-function createSizeTemplate(size) {
-    let template = $("#sizes-template")[0].innerHTML;
-    return Mustache.render(template, size);
-}
-
-function createBeveragesTemplate(size) {
-    let template = $("#beverages-template")[0].innerHTML;
-    return Mustache.render(template, size);
-}
-
 function loadInformation() {
+    fetchBeverages();
     fetchIngredients();
     fetchOrderSizes();
-    fetchBeverages();
 }
 
 
