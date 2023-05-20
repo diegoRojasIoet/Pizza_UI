@@ -83,39 +83,38 @@ class Logic {
 
     async fillTemplateData(url, templateName, tbodyTitle) {
         let response = await httpInstance.get(url);
-        let rows = response.map(element => this.#createItemTemplate(templateName, element));
         let table = $(tbodyTitle);
+
+        const rows = Array.isArray(response)
+        ? response.map(element => this.#createItemTemplate(templateName, element))
+        : [this.#createItemTemplate(templateName, response)];
         table.append(rows);
 
     }
 
 
-    async #postObject(url, object, typeAlert){
-      let response = await httpInstance.post(url, object)
+    async #sendRequest(httpMethodFunc, typeAlert) {
+      let response = await httpMethodFunc
       if (response)
         this.#showNotification(typeAlert)
+    }
+  
+
+    #onSubmit(event, dataStrategy, url, httpMethodFunc, typeAlert) {
+      let item = getDataStrategy[dataStrategy]();
+      this.#sendRequest(httpMethodFunc(url,item), typeAlert);
+      event.preventDefault();
+      event.currentTarget.reset();
     }
 
-    async #putObject(url, object, typeAlert){
-      let response = await httpInstance.put(url, object)
-      if (response)
-        this.#showNotification(typeAlert)
-    }
 
     onPostSubmit(event, dataStrategy, url, typeAlert) {
-      let item = getDataStrategy[dataStrategy]();
-      this.#postObject(url, item, typeAlert);
-      event.preventDefault();
-      event.currentTarget.reset();
+      this.#onSubmit(event, dataStrategy, url,httpInstance.post, typeAlert)
     }
+
     
     onUpdateSubmit(event, dataStrategy, url, typeAlert) {
-      debugger
-      let item = getDataStrategy[dataStrategy]();
-      debugger
-      this.#putObject(url, item, typeAlert);
-      event.preventDefault();
-      event.currentTarget.reset();
+      this.#onSubmit(event, dataStrategy, url,httpInstance.put, typeAlert) 
     }
   }
   
