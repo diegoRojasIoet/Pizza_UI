@@ -21,22 +21,22 @@ const getDataStrategy = {
     });
     beveragesQuantity = beveragesQuantity.map(n => n!==""? parseInt(n):0)
     
-    let beverages_id = [];
+    let beveragesId = [];
     $.each($("input[name='beverages-id']"), function (el) {
-        beverages_id.push($(this).val());
+        beveragesId.push($(this).val());
     });
 
-    let calculate_total_beverages = () =>{
+    let calculateTotalBeverages = () =>{
         let ids=[]
         for (let i=0; i < beveragesQuantity.length; i++){
             for (let j=0; j< beveragesQuantity[i]; j++){
-                ids.push(parseInt(beverages_id[i]))
+                ids.push(parseInt(beveragesId[i]))
             }
         }
         return ids
     }
 
-    const beverages = calculate_total_beverages();
+    const beverages = calculateTotalBeverages();
 
     return {
         client_name: $("input[name='name']").val(),
@@ -48,7 +48,8 @@ const getDataStrategy = {
         beverages
     };
   },
-  ingredient_by_id: () => {
+
+  ingredientById: () => {
     return {
       _id: $("input[id='_id']").val(),
       name: $("input[id='name']").val(),

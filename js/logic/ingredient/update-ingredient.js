@@ -16,7 +16,7 @@ const fetchIngredientById = async () => {
 
 let ingredientForm = $("#ingredient-form");
 ingredientForm.submit(event => {
-    logicInstance.onUpdateSubmit(event, 'ingredient_by_id', `http://127.0.0.1:5000/ingredient/`, '#ingredient-alert')
+    logicInstance.onUpdateSubmit(event, 'ingredientById', `http://127.0.0.1:5000/ingredient/`, '#ingredient-alert')
     window.location.href = '/app/ingredient/ingredients.html';
 });
 
