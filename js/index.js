@@ -4,9 +4,9 @@ import { fetchIngredients } from "./logic/ingredient/ingredient.js";
 import { postOrder } from "./logic/order/add-order.js";
 
 
-
-addEventListener('submit', (e) => {
-    postOrder(e);
+let orderForm = $("#order-form");
+orderForm.submit(event => {
+    postOrder(event);
 })
 
 
