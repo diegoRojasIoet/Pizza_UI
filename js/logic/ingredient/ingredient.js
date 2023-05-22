@@ -11,11 +11,6 @@ const fetchIngredientsPage = () => {
 }
 
 
-function loadInformation() {
-    fetchIngredientsPage();
-}
-
-
-window.onload = loadInformation;
+window.onload = fetchIngredientsPage;
 
 export { fetchIngredients }

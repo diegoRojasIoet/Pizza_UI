@@ -91,6 +91,8 @@ class Logic {
         : [this.#createItemTemplate(templateName, response)];
         table.append(rows);
 
+        return response
+
     }
 
 
